@@ -1,0 +1,18 @@
+#!/bin/bash
+
+outDir=jpeg
+
+# Filter directory
+for dir in `find -type d |sed 's/.\///'`; do
+	echo "$dir";
+	mkdir -p "$outDir"/"$dir";
+	
+# Filtering tiff-files
+	for file in "$dir"/*.TIF; do
+		res=${file/'.TIF'/'.jpeg'}
+
+		echo Converting "$file" -> "$outDir"/"$res";
+		convert "$file" -quality 100 "$outDir"/"$res";
+	done;
+done;
+
